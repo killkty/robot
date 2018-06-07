@@ -1,0 +1,514 @@
+MODULE Mainmod
+    CONST robtarget pHome0:=[[0.00,623.15,1368.04],[0.499993,-0.500008,0.500006,0.499992],[1,-1,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPickLie:=[[-406.46,765.37,511.11],[0.501677,-0.503865,0.49094,0.503406],[1,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPickStand:=[[394.95,870.63,742.52],[0.00877027,0.69956,0.00147667,0.714519],[0,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPickStandrot:=[[392.44,869.57,1047.42],[0.00825821,0.699458,0.00112153,0.714625],[0,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutLie:=[[132.73,863.10,519.00],[0.713569,0.00110965,0.700545,-0.00737948],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutLieOK:=[[127.21,866.79,807.20],[0.714159,-0.00224044,0.699909,-0.0099979],[0,0,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+
+    CONST robtarget pPutStandOKReady:=[[460.09,500.76,1506.20],[0.456441,-0.441283,-0.538844,-0.553695],[0,0,-3,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutStandOK:=[[1192.31,492.35,1417.96],[0.494529,-0.510001,-0.498451,-0.496878],[0,0,-3,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutOK01:=[[157.89,47.26,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutOK0t:=[[1253.13,-73.63,1353.41],[0.494558,-0.509997,-0.498477,-0.496826],[-1,1,-3,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+
+
+    CONST robtarget pPutStandNGReady:=[[439.65,-379.47,1518.87],[0.512772,0.505411,-0.479507,0.501696],[-1,1,-4,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutStandNG:=[[344.59,-488.36,926.88],[0.504615,0.497894,-0.487386,0.509824],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutStandReady10:=[[-81.65,632.55,159.44],[0.452843,-0.43842,-0.53835,-0.559375],[0,0,-3,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutNG01:=[[334.43,42.63,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget pPutNG0t:=[[355.57,-1015.56,687.68],[0.504642,0.49795,-0.487362,0.509765],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+
+    PERS robtarget pPutok:=[[157.89,47.26,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS robtarget pPutng:=[[334.43,241.83,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+
+    PERS wobjdata wobjputok:=[FALSE,TRUE,"",[[1093.83,-126.823,1337.6],[0.999965,-0.00329826,0.00731243,0.00214938]],[[1.39367,-0.4475,-0.292876],[0.999998,0.000221521,-0.00139961,0.00104389]]];
+    PERS wobjdata wobjputng:=[FALSE,TRUE,"",[[20.7486,-1061.49,655.981],[0.999961,-0.00544686,0.00156644,0.00680621]],[[0.000601352,-0.000470085,-0.00137418],[1,1.44442E-06,-1.37558E-06,7.41104E-09]]];
+
+    PERS robtarget pPlaceOK{24}:=[[[157.89,47.26,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,72.16,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,97.06,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,121.96,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,146.86,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,171.76,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,196.66,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,221.56,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,246.46,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,271.36,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,296.26,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,321.16,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,346.06,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,370.96,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,395.86,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,420.76,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,445.66,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,470.56,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,495.46,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,520.36,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,545.26,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,570.16,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,595.06,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[157.89,619.96,-171.78],[0.496146,-0.50039,-0.493704,-0.509613],[-1,1,-4,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]];
+    PERS robtarget pPlaceNG{24}:=[[[334.43,42.63,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,67.53,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,92.43,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,117.33,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,142.23,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,167.13,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,192.03,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,216.93,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,241.83,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,266.73,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,291.63,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,316.53,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,341.43,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,366.33,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,391.23,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,416.13,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,441.03,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,465.93,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,490.83,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,515.73,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,540.63,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,565.53,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,590.43,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]],[[334.43,615.33,-179.44],[0.510427,0.491826,-0.501104,0.496454],[-1,0,-3,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]];
+
+    VAR jointtarget pPreHome:=[[0,0,0,0,0,0],[0,9E9,9E9,9E9,9E9,9E9]];
+    VAR robtarget ActualPos:=[[176.88,61.1,-147.13],[0.704526,-0.709587,0.00575295,0.0097554],[0,-1,-1,1],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PERS pos posok{24}:=[[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
+    PERS pos posng{24}:=[[0,0,0],[0,1,0],[0,1,0],[0,1,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]];
+
+
+    VAR num i:=0;
+    PERS num nBoxW:=24.9;
+    PERS num nCount:=0;
+    PERS num nCountNG:=9;
+    VAR num nInput;
+    !Interrupt
+    VAR intnum intno1:=0;
+    VAR intnum intno2:=0;
+    CONST speeddata speed1:=[500,500,5000,1000];
+    CONST robtarget pPickLie10:=[[0.00,648.71,1291.22],[0.476484,-0.522404,0.522458,0.476545],[1,0,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    VAR robtarget pjuzhen{1}:=[[[0.00,623.16,1368.01],[0.499982,-0.500017,0.500017,0.499985],[1,0,-1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]];
+    PERS wobjdata wobj1:=[FALSE,TRUE,"",[[0,0,0],[1,0,0,0]],[[0,0,0],[1,0,0,0]]];
+
+    PROC rModPositions()
+        !*********************************************
+        MoveJ pHome0,v200,fine,tool0;
+        MoveAbsJ [[90,-30,15,0,15,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]]\NoEOffs,v200,fine,tool0;
+        MoveJ pHome0,v200,fine,tool0;
+        MoveJ pPickLie,v200,fine,tool0;
+        MoveJ pPutLie,v200,fine,tool0;
+        MoveJ pPutLieOK,v200,fine,tool0;
+
+        MoveJ pPickStandrot,v200,fine,tool0;
+        MoveJ pPickStand,v200,fine,tool0;
+
+        MoveJ pPutStandOKReady,v200,fine,tool0;
+        MoveJ pPutStandOK,v200,fine,tool0;
+        MoveJ pPutOK0t,v200,fine,tool0;
+        MoveJ offs(pPutOK01,0,0,150),v200,fine,tool0\WObj:=wobjputok;
+        MoveL pPutOK01, v40, fine, tool0\WObj:=wobjputok;
+
+        MoveJ pPutStandNGReady,v200,fine,tool0;
+        MoveJ pPutStandNG,v200,fine,tool0;
+        MoveJ pPutNG0t,v200,fine,tool0;
+        MoveJ offs(pPutNG01,0,0,150),v200,fine,tool0\WObj:=wobjputng;
+        MoveL pPutNG01,v100,fine,tool0\WObj:=wobjputng;
+    ENDPROC
+
+    PROC ShowpathOK()
+        MoveJ pHome0,v200,fine,tool0;
+        MoveJ Offs(pPickLie,0,0,300),v200,z10,tool0;
+        MoveL Offs(pPickLie,0,0,200),v200,fine,tool0;
+        MoveL pPickLie,v200,fine,tool0;
+        MoveL Offs(pPickLie,0,0,100),v200,fine,tool0;
+        MoveL Offs(pPutLie,0,0,300),v200,z10,tool0;
+        MoveL Offs(pPutLie,0,0,200),v200,fine,tool0;
+        MoveL pPutLie,v200,fine,tool0;
+        MoveL Offs(pPutLie,0,0,300),v200,z10,tool0;
+        MoveJ pPickStandrot,v200,z10,tool0;
+        MoveL Offs(pPickStand,0,0,300),v200,z10,tool0;
+        MoveL pPickStand,v200,z10,tool0;
+        MoveL Offs(pPickStand,0,0,300),v200,z10,tool0;
+        MoveJ pPutStandOKReady,v200,fine,tool0;
+        MoveJ pPutStandOK,v200,fine,tool0;
+        rPositionsOK;
+    ENDPROC
+
+    PROC ShowpathNG()
+        MoveJ pHome0,v200,fine,tool0;
+        MoveJ Offs(pPickLie,0,0,300),v200,z10,tool0;
+        MoveL Offs(pPickLie,0,0,200),v200,fine,tool0;
+        MoveL pPickLie,v200,fine,tool0;
+        MoveL Offs(pPickLie,0,0,100),v200,fine,tool0;
+        MoveL Offs(pPutLie,0,0,300),v200,z10,tool0;
+        MoveL Offs(pPutLie,0,0,200),v200,fine,tool0;
+        MoveL pPutLie,v200,fine,tool0;
+        MoveL Offs(pPutLie,0,0,300),v200,z10,tool0;
+        MoveJ pPickStandrot,v200,z10,tool0;
+        MoveL Offs(pPickStand,0,0,300),v200,z10,tool0;
+        MoveL pPickStand,v200,z10,tool0;
+        MoveL Offs(pPickStand,0,0,300),v200,z10,tool0;
+        MoveJ pPutStandOKReady,v200,fine,tool0;
+        MoveJ pPutStandNGReady,v200,fine,tool0;
+        MoveJ pPutStandNG,v200,fine,tool0;
+        rPositionsNG;
+    ENDPROC
+
+
+    PROC rPositionsOK()
+
+        FOR i From 1 to 24 DO
+            pPlaceOK{i}:=offs(pPutOK01,0,(i-1)*nboxW,0);
+        ENDFOR
+
+        nCount:=1;
+        WHILE nCount<25 DO
+            pPutok:=pPlaceOK{nCount};
+            pPutok.trans:=pPutok.trans+posok{ncount};
+            WaitTime 0;
+            MoveL Offs(pPutok,0,0,150),v200,fine,tool0\WObj:=wobjputok;
+            MoveL pPutok,v200,fine,tool0\WObj:=wobjputok;
+            MoveL Offs(pPutok,0,0,150),v200,fine,tool0\WObj:=wobjputok;
+            Incr nCount;
+        ENDWHILE
+        Stop;
+    ENDPROC
+
+
+    PROC rPositionsNG()
+
+        FOR i From 1 to 24 DO
+            pPlaceNG{i}:=offs(pPutNG01,0,-(i-1)*nboxW,0);
+        ENDFOR
+
+        nCount:=1;
+        WHILE nCount<25 DO
+            pPutng:=pPlaceNG{nCount};
+            pPutng.trans:=pPutng.trans+posng{ncount};
+            WaitTime 0;
+            MoveL Offs(pPutng,0,0,250),v200,fine,tool0\WObj:=wobjputng;
+            MoveL pPutng,v200,fine,tool0\WObj:=wobjputng;
+            MoveL Offs(pPutng,0,0,250),v200,fine,tool0\WObj:=wobjputng;
+            Incr nCount;
+        ENDWHILE
+        Stop;
+    ENDPROC
+
+
+    PROC rClamp(string stCode)
+        Reset do_clampOpen;
+        Reset do_clampClose;
+        TEST stCode
+        CASE "Open":
+            Set do_clampOpen;
+            WaitDI di_clampOpenOK,1;
+            Reset do_clampOpen;
+        CASE "Close":
+            Set do_clampClose;
+            WaitDI di_clampCloseOK,1;
+            Reset do_clampClose;
+        DEFAULT:
+            TPWrite "Clamp Error";
+        ENDTEST
+    ENDPROC
+
+
+    PROC rVacuum(string stCode)
+        Reset do_vacuumOut;
+        Reset do_vacuumIn;
+        Reset do_vacuumSuck;
+        Reset do_vacuumStop;
+        TEST stCode
+        CASE "In":
+            Set do_vacuumIn;
+            WaitDI di_vacuumInOK,1;
+            Reset do_vacuumIn;
+        CASE "Out":
+            Set do_vacuumOut;
+            WaitDI di_vacuumOutOK,1;
+            Reset do_vacuumOut;
+        CASE "Suck":
+            Set do_vacuumSuck;
+            WaitDI di_vacuumSuckOK,1;
+            Reset do_vacuumSuck;
+        CASE "Stop":
+            Set do_vacuumStop;
+            WaitDI di_vacuumStopOK,1;
+            Reset do_vacuumStop;
+        DEFAULT:
+            TPWrite "Vacuum Error";
+        ENDTEST
+    ENDPROC
+
+
+    PROC rHug(string stCode)
+        Reset do_HugClose;
+        Reset do_HugOpen;
+        TEST stCode
+        CASE "Open":
+            Set do_HugOpen;
+            WaitDI di_HugOpenOK,1;
+            Reset do_HugOpen;
+        CASE "Close":
+            Set do_HugClose;
+            WaitDI di_HugCloseOK,1;
+            Reset do_HugClose;
+        DEFAULT:
+            TPWrite "Hug Clamp Error";
+        ENDTEST
+    ENDPROC
+
+
+    PROC Main()
+        !2018/4/27 17:45:00
+
+        rInitAll;
+        WHILE TRUE DO
+            AccSet 90,90;
+            WaitTime 0.2;
+            IF di_PickLieBatRD=high THEN
+                rGetInfo;
+                IF di_BatNG=high THEN
+                    rPickBat;
+                    rPutNGBat;
+                ELSE
+                    rPickBat;
+                    rPutOKBat;
+                ENDIF
+            ENDIF
+        ENDWHILE
+    ENDPROC
+
+    PROC rGetInfo()
+
+        FOR i From 1 to 24 DO
+            pPlaceOK{i}:=offs(pPutOK01,0,(i-1)*nboxW,0);
+            pPlaceNG{i}:=offs(pPutNG01,0,(i-1)*nboxW,0);
+        ENDFOR
+
+        IF di_BatNG=low THEN
+            IF gi_Oknum=nCount THEN
+                TPErase;
+                TPWrite "The CycleNO that Put Bat is: ERR";
+                !stop;         
+            ELSE
+                TPErase;
+                TPWrite "The CycleNO that Put Bat is:"\Num:=gi_Oknum;
+            ENDIF
+            nCount:=gi_Oknum;
+            WaitTime 0;
+            pPutok:=pPlaceOK{nCount};
+            pPutok.trans:=pPutok.trans+posok{ncount};
+
+        ELSE
+            IF gi_NGnum=nCountNG THEN
+                TPErase;
+                TPWrite "The CycleNO that Put NGBat is: ERR";
+                !stop;
+
+            ELSE
+                TPErase;
+                TPWrite "The CycleNO that Put NGBat is:"\Num:=gi_NGnum;
+
+            ENDIF
+            nCountNG:=gi_NGnum;
+            WaitTime 0;
+            pPutng:=pPlaceNG{nCountNG};
+            pPutng.trans:=pPutng.trans+posng{ncountNG};
+        ENDIF
+
+    ENDPROC
+
+
+    PROC rPickBat()
+        MoveJ pHome0,v200,fine,tool0;
+        reset doAtHome;
+        rHug "Open";
+        rVacuum "Out";
+        MoveJ Offs(pPickLie,0,0,400),v400,z50,tool0;
+        MoveL Offs(pPickLie,0,0,100),v200,z0,tool0;
+        MoveL pPickLie,v80,fine,tool0;
+        rVacuum "Suck";
+        rVacuum "In";
+
+        MoveL Offs(pPickLie,0,0,100),v400,fine,tool0;
+        rHug "Close";
+        Set do_PickLieBatOver;
+        WaitDI di_PickLieBatOverOK,1;
+        Reset do_PickLieBatOver;
+
+        MoveL Offs(pPutLie,0,0,300),v400,z50,tool0;
+        MoveL Offs(pPutLie,0,0,200),v400,z10,tool0;
+        WaitDI di_PutLieBatRD,1;
+        MoveL Offs(pPutLie,0,0,100),v300,fine,tool0;
+        rHug "Open";
+        rVacuum "Out";
+
+        MoveL pPutLie,v200,fine,tool0;
+        rVacuum "Stop";
+        rVacuum "In";
+        MoveL Offs(pPutLie,0,0,400),v400,fine,tool0;
+
+        Set do_PutLieBatOver;
+        WaitDI di_PutLieBatOverOK,1;
+        SetDO do_PutLieBatOver,0;
+
+        MoveJ pPickStandrot,v300,z50,tool0;
+        MoveL Offs(pPickStand,0,0,200),v300,fine,tool0;
+        rClamp "Open";
+        WaitDI di_PickStandBatRD,1;
+        WaitTime 0.5;
+        MoveL pPickStand,v200,fine,tool0;
+        rClamp "Close";
+        !WaitTime 0.5;
+        Set do_TurnclampIN;
+        WaitDI di_TurnclampINOK,1;
+        WaitTime 0.2;
+
+        MoveL Offs(pPickStand,0,0,300),v300,z0,tool0;
+        MoveL Offs(pPickStand,0,0,400),v400,z10,tool0;
+        Reset do_TurnclampIN;
+        !Set do_PickStandBatOver;
+        !WaitDI di_PickStandBatOverOK,1;
+        !Reset do_PickStandBatOver;
+    ENDPROC
+
+
+    PROC rPutOKBat()
+
+        MoveJ pPutStandOKReady,v400,z50,tool0;
+        MoveJ pPutStandOK,v500,z10,tool0;
+        MoveL Offs(pPutok,0,0,150),v300,fine,tool0\WObj:=wobjputok;
+        WaitTime 0.2;
+        Set do_OKzhanweijiance;
+        WaitDI di_PutOKRD,1;
+        Reset do_OKzhanweijiance;
+        A1:
+        MoveL Offs(pPutok,0,0,95),v100,fine,tool0\WObj:=wobjputok;
+        WHILE DIImpact=1 do
+                ActualPos:=CRobT(\Tool:=tool0\WObj:=wobj0);
+                MoveL offs(ActualPos,0,0,100),v100,fine,tool0;
+                ErrWrite " signal Error","peng zhuang";
+                TPWrite "Press OK to continue ";
+                TPReadFK nInput," ","","","","","OK";
+                IF nInput=5 THEN
+                    nInput:=0;
+                    TPWrite "Robot is runing";
+                ENDIF
+                StorePath;
+                StartMove;
+                MoveL ActualPos,v100,z1,tool0;
+                GOTO A1;
+        ENDwhile
+        !MoveL pPutok,v80,fine,tool0\WObj:=wobjputok;
+        MoveL Offs(pPutok,0,0,0), v100, fine, tool0\WObj:=wobjputok;
+        rClamp "Open";
+        WaitTime 0.5;
+        MoveL Offs(pPutok,0,0,200),v300,z50,tool0\WObj:=wobjputok;
+        MoveJ pPutStandOKReady,v400,fine,tool0;
+        Set do_PutOKOver;
+        WaitDI di_PutOKOverOK,1;
+        Reset do_PutOKOver;
+        MoveJ pHome0,v300,fine,tool0;
+        set doAtHome;
+
+    ENDPROC
+
+
+    PROC rPutNGBat()
+
+        MoveJ pPutStandOKReady,v300,z100,tool0;
+        MoveJ pPutStandNGReady,v500,z100,tool0;
+        MoveJ pPutStandNG,v400,z100,tool0;
+        MoveL Offs(pPutng,0,0,150),v300,fine,tool0\WObj:=wobjputng;
+        WaitTime 0.2;
+        Set do_NGzhanweijiance;
+        WaitDI di_PutNGRD,1;
+        Reset do_NGzhanweijiance;
+        A2:
+        MoveL Offs(pPutng,0,0,120),v100,z1,tool0\WObj:=wobjputng;
+        IF DIImpact=1 THEN
+                ActualPos:=CRobT(\Tool:=tool0\WObj:=wobj0);
+                MoveL offs(ActualPos,0,0,100),v100,fine,tool0;
+                ErrWrite " signal Error","peng zhuang";
+                TPWrite "Press OK to continue ";
+                TPReadFK nInput," ","","","","","OK";
+                IF nInput=5 THEN
+                    nInput:=0;
+                    TPWrite "Robot is runing";
+                ENDIF
+                StorePath;
+                StartMove;
+                MoveL ActualPos,v100,z1,tool0;
+                GOTO A2;
+            ENDIF
+        MoveL pPutng,v80,fine,tool0\WObj:=wobjputng;
+        rClamp "Open";
+        WaitTime 0.5;
+        MoveL Offs(pPutng,0,0,300),v300,z50,tool0\WObj:=wobjputng;
+        MoveJ pPutStandNG,v400,fine,tool0;
+        Set do_PutNGOver;
+        WaitDI di_PutNGOverOK,1;
+        Reset do_PutNGOver;
+        MoveJ pPutStandNGReady,v400,z100,tool0;
+        MoveJ pPutStandOKReady,v400,z100,tool0;
+        MoveJ pHome0,v300,fine,tool0;
+        set doAtHome;
+
+    ENDPROC
+
+
+    PROC rTesttool()
+        rHug "Open";
+        rHug "Close";
+        rVacuum "In";
+        rVacuum "Out";
+        rVacuum "Stop";
+        rVacuum "Suck";
+        rClamp "Open";
+        rClamp "Close";
+    ENDPROC
+
+
+    PROC rInitAll()
+
+        Reset do_clampOpen;
+        Reset do_clampClose;
+        Reset do_vacuumOut;
+        Reset do_vacuumIn;
+        Reset do_vacuumSuck;
+        Reset do_vacuumStop;
+        Reset do_HugOpen;
+        Reset do_HugClose;
+        Reset do_PickLieBatOver;
+        Reset do_PutLieBatOver;
+        Reset do_PickStandBatOver;
+        Reset do_PutOKOver;
+        Reset do_PutNGOver;
+        Reset do_TurnclampIN;
+
+        !!!!!
+        IDelete intno1;
+        CONNECT intno1 WITH rBoxLost;
+        ISignalDI diImpact,1,intno1;
+
+        rHug "Open";
+        rVacuum "In";
+        rVacuum "Stop";
+        rClamp "Open";
+
+        nCount:=0;
+        nCountNG:=0;
+        rSafeMoveHome;
+
+    ENDPROC
+
+
+    PROC rSafeMovehome()
+        pPreHome:=CJointT();
+        IF pPreHome.robax.rax_1<-30 THEN
+            ActualPos:=CRobT(\Tool:=tool0\WObj:=wobjputng);
+            IF ActualPos.trans.z<50 THEN
+                ActualPos.trans.z:=100;
+                MoveL ActualPos,v100,z0,tool0\WObj:=wobjputng;
+                MoveJ pPutStandNGReady,v100,z100,tool0;
+            ELSE
+                MoveJ pPutStandNGReady,v100,z100,tool0;
+            ENDIF
+        ELSEIF pPreHome.robax.rax_1<45 THEN
+            ActualPos:=CRobT(\Tool:=tool0\WObj:=wobjputok);
+            IF ActualPos.trans.z<50 THEN
+                ActualPos.trans.z:=100;
+                MoveL ActualPos,v100,z0,tool0\WObj:=wobjputok;
+                MoveJ pPutStandOKReady,v100,z100,tool0;
+            ELSE
+                MoveJ pPutStandOKReady,v100,z100,tool0;
+            ENDIF
+        ELSE
+            ActualPos:=CRobT(\Tool:=tool0\WObj:=wobj0);
+            IF ActualPos.trans.z<800 THEN
+                ActualPos.trans.z:=900;
+                MoveL ActualPos,v100,z0,tool0;
+            ENDIF
+        ENDIF
+        MoveJ pHome0,v100,fine,tool0;
+        Set doAtHome;
+    ENDPROC
+
+
+
+    TRAP rBoxLost
+        IDisable;
+        StopMove;
+        StorePath;
+        ActualPos:=CRobT(\Tool:=tool0\WObj:=wobj0);
+        MoveL offs(ActualPos,0,0,100),v100,fine,tool0;
+        IEnable;
+        TPErase;
+        TPWrite "Press OK to continue ";
+        TPReadFK nInput," ","","","","","OK";
+        IF nInput=5 THEN
+            nInput:=0;
+            TPWrite "Robot is runing";
+        ENDIF
+        MoveL ActualPos,v100,fine,tool0;
+        RestoPath;
+        StartMove;
+    ENDTRAP
+ENDMODULE
